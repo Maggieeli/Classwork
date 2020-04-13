@@ -1,0 +1,32 @@
+class Person:
+   def __init__(self, name: str, height: int, strength: int, health_points: int):
+       self.name = name
+       self.height = height
+       self.strength = strength
+       self.health_points = 100
+ 
+   def __str__(self) -> str:
+       return f"{self.name}, hp: {self.health_points}"
+ 
+   def introduce(self):
+       print(f"Hello, my name is {self.name}")
+ 
+   def punch(self, person):
+       print(f"{self.name} punches {person.name}")
+       person.health_points -= 10
+ 
+   def eat(self):
+       self.health_points = 100
+      
+ 
+veronica = Person("Veronica", 150, 50)
+darren = Person("Darren", 170, 50)
+ 
+print(veronica)
+print(darren)
+ 
+veronica.introduce()
+darren.introduce()
+ 
+veronica.punch(darren)
+darren.punch(darren)
