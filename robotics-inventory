@@ -1,5 +1,4 @@
 from typing import List
-import datetime
  
 class Bin:
    def __init__(self, id: int, location: str, part_id: str, qty_in_bin: int):
