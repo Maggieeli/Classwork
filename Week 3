@@ -1,7 +1,6 @@
 import datetime
 from typing import List
 
-
 class BaseRecord:
     def __init__(self, id: int):
         self._id = id
@@ -11,7 +10,7 @@ class BaseRecord:
     def get_id(self) -> int:
         return self._id
     
-    def set_id(self, new_id) -> None:
+    def set_id(self, new_id):
         if type(new_id) != int or new_id < 0:
             raise ValueError("Id should be a positive integer")
         self._id = new_id
@@ -31,15 +30,15 @@ class Bin(BaseRecord):
     def get_qty_in_bin(self) -> int:
         return self._qty_in_bin
     
-    def set_qty_in_bin(self, new_qty) -> None:
+    def set_qty_in_bin(self, new_qty):
         self._qty_in_bin = new_qty
         self.updated_at = datetime.datetime.now()
         assert type(new_qty) is int and new_qty >= 0, "The value must a positive integer"
-    def set_part_id(self, new_part_id) -> None:
+    def set_part_id(self, new_part_id):
         self._part_id = new_part_id
         self.updated_at = datetime.datetime.now()
         assert type(new_part_id) is str, "The part id must be a str"
-    def set_location(self, new_location) -> None:
+    def set_location(self, new_location):
         self._location = new_location
         self.updated_at = datetime.datetime.now()
         assert type(new_location) is str, "The location must be a str"
@@ -58,10 +57,10 @@ class Part(BaseRecord):
     def get_bin_id(self) -> int:
         return self._bin_id
 
-    def set_name(self, new_name) -> None:
+    def set_name(self, new_name):
         self._name = new_name
         self.updated_at = datetime.datetime.now()
-        assert type(new_name) is str, "Part name must be a str"
+        assert len(new_name) <= 30, "Names should be 30 chars or less."
     def set_quantity(self, new_quantity) -> None:
         self._quantity = new_quantity
         self.updated_at = datetime.datetime.now()
@@ -102,15 +101,15 @@ class Log(BaseRecord):
         return self._part_id
     
 
-    def set_user_id(self, new_user_id) -> None:
+    def set_user_id(self, new_user_id):
         self._user_id = new_user_id
         self.updated_at = datetime.datetime.now()
-        assert type(new_user_id) is str, "User id must be a str"
-    def set_quantity(self, new_quantity) -> None:
+        assert len(new_user_id) <= 20, "User id must be 20 chars or less "
+    def set_quantity(self, new_quantity):
         self._quantity = new_quantity
         self.updated_at = datetime.datetime.now()
         assert type(new_quantity) is int and new_quantity >= 0, "The value must a positive integer"
-    def set_part_id(self, new_part_id) -> None:
+    def set_part_id(self, new_part_id):
         self._part_id = new_part_id
         self.updated_at = datetime.datetime.now()
         assert type(new_part_id) is int, "The part id must be an integer"
@@ -131,18 +130,18 @@ class Inventory_manager:
     def get_users(self) -> List[User]:
         return self._users
     
-    def set_parts(self, new_parts) -> None:
+    def set_parts(self, new_parts):
         for part in new_parts:
             assert type(part) is Part, "parts must have a List of type Part"
         self._parts = new_parts
-    def set_bins(self, new_bins) -> None:
+    def set_bins(self, new_bins):
         for bin in new_bins:
             assert type(bin) is Bin, "bins must have a list of type Bin"
-    def set_logs(self, new_logs) -> None:
+    def set_logs(self, new_logs):
         for log in new_logs:
             assert type(log) is Log, "logs must have a list of type Log"
         self._logs = new_logs
-    def set_users(self, new_users) -> None:
+    def set_users(self, new_users):
         for user in new_users:
             assert type(user) is User, "users must have a list of type User"
         self._user = new_users
@@ -195,13 +194,13 @@ class Inventory_manager:
         else:
             raise Exception("No student with given student number was found")
     
-    def add_part(self, name: str, quantity: int, bin_location: str) -> None:
-        """Creates a Part object using the data provided to the method and extracts the bin id. Adds new part to parts list
+    def add_part(self, name: str, quantity: int, bin_location: str):
+        """Creates a Part object and takes the bin id. Adds set part to parts list.
 
         Args:
             name: Name of part
-            quantity: Number of parts avaliable
-            bin_location: The location of the bin where the part is located
+            quantity: # of parts avaliable
+            bin_location: The location of the bin
         """
         new_part_bin = self.find_bin(bin_location)
         new_part = Part(new_part_bin.get_part_id(), name, quantity, new_part_bin.get_id())
