@@ -1,6 +1,7 @@
 import datetime
 from typing import List
 
+# Class Variable
 class BaseRecord:
     def __init__(self, id: int):
         self._id = id
@@ -15,7 +16,7 @@ class BaseRecord:
             raise ValueError("Id should be a positive integer")
         self._id = new_id
         self.updated_at = datetime.datetime.now()
-    
+        
 class Bin(BaseRecord):
     def __init__(self, id: int, location: str, part_id: str, qty_in_bin: int):
         super().__init__(id)
@@ -117,7 +118,7 @@ class Log(BaseRecord):
 class Inventory_manager:
     def __init__(self, bins: List[Bin]):
         self._parts = []
-        self._bins = bins
+        self._bins = []
         self._logs = []
         self._users = []
 
