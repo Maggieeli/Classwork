@@ -39,6 +39,7 @@ class Bin(BaseRecord):
         self._part_id = new_part_id
         self.updated_at = datetime.datetime.now()
         assert type(new_part_id) is str, "The part id must be a str"
+        assert len(new_part_id) <= 30, "The part id must 30 chars or less"
     def set_location(self, new_location):
         self._location = new_location
         self.updated_at = datetime.datetime.now()
